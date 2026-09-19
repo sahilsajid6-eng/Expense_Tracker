@@ -61,7 +61,7 @@ def main_dashboard():
     expenses = db_mgr.fetch_user_expenses(user.id)
     curr = demo.currency_symbol
 
-    st.title("💸 Executive Dashboard")
+    st.title("💸 Dashboard")
     st.caption("Track, record, and manage personal expenses effortlessly.")
 
     # High-level Metrics Row

@@ -1,7 +1,7 @@
 from datetime import datetime
 import streamlit as st
-from loginandprofile import User, AuthManager, login_signup_page, check_onboarding
-from demographicsandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
+from Loginandprofile import User, AuthManager, login_signup_page, check_onboarding
+from demographicandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
 
 # Initialize backend database managers
 db_mgr = ExpenseDatabaseManager(db_name="expenses_v2.db")

@@ -86,7 +86,7 @@ def main_dashboard():
     with col1:
         st.markdown('<div class="section-title">Log New Expense</div>', unsafe_allow_html=True)
         with st.form(key="expense_form", clear_on_submit=True):
-            amount = st.number_input(f"Amount ({curr})", min_value=0.01, step=0.01)
+            amount = st.number_input(f"Amount ({curr})", min_value=10, step=10)
             category = st.selectbox("Category", ["Food", "Travel", "Study", "Entertainment", "Bills", "Shopping"])
             expense_date = st.date_input("Date", datetime.now())
             if st.form_submit_button("Record Expense", type="primary", use_container_width=True):

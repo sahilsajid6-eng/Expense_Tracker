@@ -7,8 +7,8 @@ import sys
 sys.path.append(str(Path(__file__).parent.resolve()))
 
 import streamlit as st
-from demographicsandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
-from loginandprofile import AuthManager, User, check_onboarding, login_signup_page
+from demographicandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
+from Loginandprofile import AuthManager, User, check_onboarding, login_signup_page
 
 # Initialize backend database managers
 db_mgr = ExpenseDatabaseManager(db_name="expenses_v2.db")

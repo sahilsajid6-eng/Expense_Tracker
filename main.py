@@ -1,5 +1,4 @@
 from datetime import datetime
-import os
 from pathlib import Path
 import sys
 
@@ -17,7 +16,7 @@ auth_mgr = AuthManager(db_name="expenses_v2.db")
 # Streamlit Page Setup
 st.set_page_config(page_title="FinTrack Pro - Expense Intelligence", page_icon="💳", layout="wide")
 
-# Styling
+# Custom Styling
 st.markdown("""
 <style>
     .metric-card {
@@ -86,7 +85,7 @@ def main_dashboard():
     with col1:
         st.markdown('<div class="section-title">Log New Expense</div>', unsafe_allow_html=True)
         with st.form(key="expense_form", clear_on_submit=True):
-            amount = st.number_input(f"Amount ({curr})", min_value=10, step=10)
+            amount = st.number_input(f"Amount ({curr})", min_value=0.01, step=0.01)
             category = st.selectbox("Category", ["Food", "Travel", "Study", "Entertainment", "Bills", "Shopping"])
             expense_date = st.date_input("Date", datetime.now())
             if st.form_submit_button("Record Expense", type="primary", use_container_width=True):
@@ -109,7 +108,7 @@ def main_dashboard():
             st.info("No expense entries logged yet.")
 
 
-# Navigation Helper Functions (Avoids lambda issues inside st.Page)
+# Router Callbacks
 def render_login():
     login_signup_page(auth_mgr)
 
@@ -120,7 +119,7 @@ def render_demographics():
     demographics_page(db_mgr)
 
 
-# Router
+# Router Navigation
 if "user" not in st.session_state:
     page_login = st.Page(render_login, title="Portal", icon="🔐")
     pg = st.navigation([page_login])

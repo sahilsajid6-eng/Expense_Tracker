@@ -7,14 +7,14 @@ sys.path.append(str(Path(__file__).parent.resolve()))
 
 import streamlit as st
 from demographicandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
-from Loginandprofile import AuthManager, User, check_onboarding, login_signup_page
+from loginandprofile import AuthManager, User, check_onboarding, login_signup_page
 
 # Initialize backend database managers
 db_mgr = ExpenseDatabaseManager(db_name="expenses_v2.db")
 auth_mgr = AuthManager(db_name="expenses_v2.db")
 
 # Streamlit Page Setup
-st.set_page_config(page_title="FinTrack Pro - Expense Intelligence", page_icon="💳", layout="wide")
+st.set_page_config(page_title="Hisab Kitab- Expense Tracker", page_icon="💳", layout="wide")
 
 # Custom Styling
 st.markdown("""
@@ -132,7 +132,7 @@ else:
 
     st.sidebar.divider()
 
-    page_main = st.Page(main_dashboard, title="Executive Dashboard", icon="💸", default=True)
+    page_main = st.Page(main_dashboard, title="Dashboard", icon="💸", default=True)
     page_charts = st.Page(render_charts, title="Financial Analytics", icon="📊")
     page_demographics = st.Page(render_demographics, title="Demographics & Reports", icon="👤")
     

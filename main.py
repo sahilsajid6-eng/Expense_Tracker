@@ -1,7 +1,14 @@
 from datetime import datetime
+import os
+from pathlib import Path
+import sys
+
+# Force Python to locate local modules regardless of deployment path
+sys.path.append(str(Path(__file__).parent.resolve()))
+
 import streamlit as st
-from Loginandprofile import User, AuthManager, login_signup_page, check_onboarding
-from demographicandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
+from demographicsandrecord import Expense, ExpenseDatabaseManager, charts_page, demographics_page
+from loginandprofile import AuthManager, User, check_onboarding, login_signup_page
 
 # Initialize backend database managers
 db_mgr = ExpenseDatabaseManager(db_name="expenses_v2.db")
@@ -102,9 +109,20 @@ def main_dashboard():
             st.info("No expense entries logged yet.")
 
 
-# Navigation Router
+# Navigation Helper Functions (Avoids lambda issues inside st.Page)
+def render_login():
+    login_signup_page(auth_mgr)
+
+def render_charts():
+    charts_page(db_mgr)
+
+def render_demographics():
+    demographics_page(db_mgr)
+
+
+# Router
 if "user" not in st.session_state:
-    page_login = st.Page(lambda: login_signup_page(auth_mgr), title="Portal", icon="🔐")
+    page_login = st.Page(render_login, title="Portal", icon="🔐")
     pg = st.navigation([page_login])
 else:
     user: User = st.session_state["user"]
@@ -116,8 +134,8 @@ else:
     st.sidebar.divider()
 
     page_main = st.Page(main_dashboard, title="Executive Dashboard", icon="💸", default=True)
-    page_charts = st.Page(lambda: charts_page(db_mgr), title="Financial Analytics", icon="📊")
-    page_demographics = st.Page(lambda: demographics_page(db_mgr), title="Demographics & Reports", icon="👤")
+    page_charts = st.Page(render_charts, title="Financial Analytics", icon="📊")
+    page_demographics = st.Page(render_demographics, title="Demographics & Reports", icon="👤")
     
     pg = st.navigation({
         "Application Menu": [page_main, page_charts, page_demographics]
